@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plan Diario de Clase Presencial • Tipos de Textos: Expositivo y Descriptivo - Colegio Montano</title>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --azul-principal: #1269A8;
+            --amarillo-brillante: #F7D615;
+            --verde-grisaceo: #54887D;
+            --azul-claro: #88B5C7;
+            --verde-oliva: #A6B046;
+            --blanco-suave: #F2F5E9;
+            --texto-oscuro: #1A2B3C;
+            --blanco-puro: #FFFFFF;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #CBD5E1;
+            padding: 15px;
+            color: var(--texto-oscuro);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* Marco de la Pizarra Digital */
+        .blackboard-frame {
+            width: 100%;
+            max-width: 1150px;
+            background-color: var(--blanco-suave);
+            border: 8px solid var(--amarillo-brillante);
+            border-radius: 20px;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Encabezado Institucional Montano */
+        .blackboard-header {
+            background-color: var(--azul-principal);
+            color: var(--blanco-puro);
+            padding: 15px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            border-bottom: 5px solid var(--verde-grisaceo);
+        }
+
+        .brand-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .school-logo {
+            height: 55px;
+            width: auto;
+            background-color: white;
+            padding: 4px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .header-titles h1 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--blanco-puro);
+        }
+
+        .header-titles p {
+            font-size: 0.85rem;
+            color: var(--amarillo-brillante);
+            font-weight: 600;
+        }
+
+        /* Botón Pantalla Completa */
+        .fullscreen-btn {
+            background-color: var(--amarillo-brillante);
+            color: var(--azul-principal);
+            border: none;
+            padding: 10px 18px;
+            border-radius: 25px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+        }
+
+        .fullscreen-btn:hover {
+            transform: translateY(-2px);
+            background-color: #ffe02e;
+        }
+
+        /* Encabezado Técnico / Datos Informativos */
+        .header-info-grid {
+            background-color: #E2E8F0;
+            padding: 12px 25px;
+            font-size: 0.85rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 10px;
+            border-bottom: 2px solid var(--azul-claro);
+        }
+
+        .info-card {
+            background: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            border-left: 4px solid var(--azul-principal);
+        }
+
+        .info-card strong {
+            color: var(--azul-principal);
+            display: block;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+        }
+
+        /* Navegación por Pestañas (Momentos Didácticos) */
+        .tab-nav {
+            background-color: var(--verde-grisaceo);
+            display: flex;
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+
+        .tab-btn {
+            background: transparent;
+            border: none;
+            color: var(--blanco-suave);
+            padding: 14px 18px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 4px solid transparent;
+            flex: 1;
+            justify-content: center;
+        }
+
+        .tab-btn:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--blanco-puro);
+        }
+
+        .tab-btn.active {
+            background-color: var(--blanco-suave);
+            color: var(--azul-principal);
+            border-bottom: 4px solid var(--amarillo-brillante);
+            font-weight: 700;
+        }
+
+        /* Área de Contenido Principal */
+        .blackboard-content {
+            padding: 25px;
+            min-height: 460px;
+            max-height: 68vh;
+            overflow-y: auto;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Títulos e Indicadores de Tiempo */
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--verde-oliva);
+        }
+
+        .section-title {
+            color: var(--azul-principal);
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .badge-time {
+            background-color: var(--amarillo-brillante);
+            color: var(--texto-oscuro);
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-weight: 700;
+            font-size: 0.85rem;
+        }
+
+        /* Tarjetas de Trabajo */
+        .card {
+            background: white;
+            border-radius: 10px;
+            padding: 18px;
+            margin-bottom: 15px;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.05);
+            border-left: 5px solid var(--azul-principal);
+        }
+
+        .card-habit {
+            border-left-color: var(--verde-oliva);
+            background-color: #F8FAF0;
+        }
+
+        .card h4 {
+            color: var(--azul-principal);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Acordeón para Soluciones Ocultas */
+        .accordion-btn {
+            background-color: var(--verde-grisaceo);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 10px;
+            transition: background 0.2s;
+        }
+
+        .accordion-btn:hover {
+            background-color: var(--azul-principal);
+        }
+
+        .accordion-content {
+            display: none;
+            margin-top: 10px;
+            padding: 12px;
+            background-color: #F0F7FA;
+            border-left: 4px solid var(--azul-claro);
+            border-radius: 4px;
+            font-size: 0.9rem;
+        }
+
+        /* Juego Ruleta / Trivia */
+        .game-box {
+            background-color: #FAF5FF;
+            border: 2px dashed #8B5CF6;
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 15px;
+        }
+
+        .roulette-display {
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #6D28D9;
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+            margin: 10px 0;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #DDD6FE;
+        }
+
+        .action-btn {
+            background-color: #8B5CF6;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .action-btn:hover {
+            background-color: #7C3AED;
+        }
+
+        /* Tabla de Lista de Cotejo */
+        .rubric-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            background: white;
+        }
+
+        .rubric-table th {
+            background-color: var(--azul-principal);
+            color: white;
+            padding: 10px;
+            text-align: left;
+            font-size: 0.85rem;
+        }
+
+        .rubric-table td {
+            padding: 10px;
+            border-bottom: 1px solid #E2E8F0;
+            font-size: 0.85rem;
+        }
+
+        .rubric-table input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        /* Footer */
+        .blackboard-footer {
+            background-color: var(--azul-principal);
+            color: var(--blanco-puro);
+            text-align: center;
+            padding: 10px;
+            font-size: 0.8rem;
+            border-top: 3px solid var(--amarillo-brillante);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="blackboard-frame" id="blackboard">
+        <!-- Encabezado Institucional Montano -->
+        <header class="blackboard-header">
+            <div class="brand-container">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQyEop0yf6lZ7Jk9MILZxF1rBj4Oqs5esyhIQ&s" alt="Logo Colegio Montano" class="school-logo" onerror="this.src='https://placehold.co/120x50/1269A8/FFFFFF?text=Montano'">
+                <div class="header-titles">
+                    <h1>PLAN DIARIO DE CLASE PRESENCIAL • PIZARRA DIGITAL</h1>
+                    <p>Modelo Formativo Colegio Montano • Educación Primaria</p>
+                </div>
+            </div>
+            <button class="fullscreen-btn" onclick="toggleFullscreen()">
+                <i class="fa-solid fa-expand"></i> Pantalla Completa
+            </button>
+        </header>
+
+        <!-- Encabezado Técnico / Datos Informativos -->
+        <div class="header-info-grid">
+            <div class="info-card">
+                <strong>Curso:</strong> Comunicación y Lenguaje
+            </div>
+            <div class="info-card">
+                <strong>Tema:</strong> Texto Expositivo y Descriptivo
+            </div>
+            <div class="info-card">
+                <strong>Grado / Unidad:</strong> 5to Primaria / Unidad II
+            </div>
+            <div class="info-card">
+                <strong>No. Plan y Fecha:</strong> Plan 9 / Sexta Semana Abril
+            </div>
+            <div class="info-card">
+                <strong>Docente:</strong> Cecilia Mendoza
+            </div>
+        </div>
+
+        <!-- Navegación de Secuencia Didáctica (4 Momentos + Evaluación) -->
+        <nav class="tab-nav">
+            <button class="tab-btn active" onclick="switchTab('tab1')">
+                <i class="fa-solid fa-bolt"></i> I) Introducción Motivante (~5 min)
+            </button>
+            <button class="tab-btn" onclick="switchTab('tab2')">
+                <i class="fa-solid fa-user"></i> II) Trabajo Individual (20 min)
+            </button>
+            <button class="tab-btn" onclick="switchTab('tab3')">
+                <i class="fa-solid fa-users"></i> III) Trabajo Cooperativo (30 min)
+            </button>
+            <button class="tab-btn" onclick="switchTab('tab4')">
+                <i class="fa-solid fa-comments"></i> IV) Plenaria / Trivia (15 min)
+            </button>
+            <button class="tab-btn" onclick="switchTab('tab5')">
+                <i class="fa-solid fa-clipboard-check"></i> Evaluación Plenaria
+            </button>
+        </nav>
+
+        <!-- Área Principal de la Pizarra Digital -->
+        <main class="blackboard-content">
+
+            <!-- MOMENTO I: INTRODUCCIÓN MOTIVANTE -->
+            <section id="tab1" class="tab-content active">
+                <div class="section-header">
+                    <h2 class="section-title"><i class="fa-solid fa-bolt"></i> Pestaña I) Introducción Motivante y Activación de Saberes</h2>
+                    <span class="badge-time">Tiempo: ~5 minutos</span>
+                </div>
+
+                <div class="card card-habit">
+                    <h4><i class="fa-solid fa-seedling"></i> Hábito Montano Integrado: "Comenzar con un fin en mente"</h4>
+                    <p><strong>Meta de la sesión:</strong> Diferenciar con claridad la intención comunicativa de los textos expositivos (informar objetivamente) y de los textos descriptivos (pintar detalles con palabras) para aplicarlos adecuadamente en la lectura y redacción.</p>
+                </div>
+
+                <div class="card">
+                    <h4><i class="fa-solid fa-bullseye"></i> Alineación CNB (Guatemala)</h4>
+                    <p><strong>Competencia:</strong> Lee y redacta diversos tipos de texto aplicando la estructura, intención comunicativa y recursos lingüísticos adecuados.</p>
+                    <p><strong>Logro de Aprendizaje:</strong> Distingue la estructura e intención entre textos expositivos y descriptivos, identificando datos objetivos frente a recursos cualitativos y sensoriales.</p>
+                </div>
+
+                <div class="card">
+                    <h4><i class="fa-solid fa-gamepad"></i> Recreo Cerebral / Evaluación Inicial: "¿Informar o Pintar con Palabras?"</h4>
+                    <p><strong>Dinámica rápida:</strong> El docente lee dos tarjetas cortas sobre el Quetzal y los estudiantes levantan la mano según la intención de la lectura:</p>
+                    <ul style="margin-left: 20px; margin-top: 6px;">
+                        <li><strong>Texto A:</strong> "El quetzal es un ave cuyo hábitat se ubica en los bosques nubosos de Centroamérica. Su nombre científico es <em>Pharomachrus mocinno</em>." &rarr; <em>¿Información objetiva? (Expositivo)</em></li>
+                        <li><strong>Texto B:</strong> "Posee un pecho rojo carmesí brillante, plumas verdes esmeralda que destellan con el sol y una cola larguísima y elegante." &rarr; <em>¿Detalle visual y sensorial? (Descriptivo)</em></li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h4><i class="fa-solid fa-box-open"></i> Recursos Necesarios</h4>
+                    <p>Cuaderno de trabajo, Guía 9 de Comunicación y Lenguaje, papelógrafos, marcadores, proyectador/Pizarra Digital.</p>
+                </div>
+            </section>
+
+            <!-- MOMENTO II: TRABAJO INDIVIDUAL -->
+            <section id="tab2" class="tab-content">
+                <div class="section-header">
+                    <h2 class="section-title"><i class="fa-solid fa-user"></i> Pestaña II) Trabajo Individual</h2>
+                    <span class="badge-time">Tiempo: 20 minutos</span>
+                </div>
+
+                <div class="card card-habit">
+                    <h4><i class="fa-solid fa-brain"></i> Hábito Montano Integrado: "Poner primero lo primero"</h4>
+                    <p>Enfoque de trabajo individual, priorizando la lectura atenta y el análisis crítico de la estructura textual antes de responder las consignas en el cuaderno.</p>
+                </div>
+
+                <div class="card">
+                    <h4><i class="fa-solid fa-pen-to-square"></i> Actividad en Cuaderno</h4>
+                    <p>Copia y resuelve los siguientes ejercicios de análisis textual a partir de la Guía 9:</p>
+                    <ol style="margin-left: 20px; margin-top: 8px;">
+                        <li><strong>Clasificación e Intención:</strong> Identifica cuál es un texto Expositivo y cuál Descriptivo:
+                            <br>a) <em>"Los volcanes expulsan magma y ceniza por fisuras en la corteza terrestre debido a la acumulación de gases."</em>
+                            <br>b) <em>"El volcán Pacaya luce una cima humeante rodeada de rocas de lava negra y un aire con olor a azufre."</em>
+                        </li>
+                        <li><strong>Reconocimiento de Recursos:</strong> Subraya los adjetivos calificativos en el texto b y explica a qué sentido corresponden (vista, olfato, etc.).</li>
+                        <li><strong>Transformación Textual:</strong> Reescribe una frase informativa breve ("El agua se evapora con el calor") convirtiéndola en un fragmento descriptivo.</li>
+                    </ol>
+
+                    <!-- Botón desplegable para solución oculta -->
+                    <button class="accordion-btn" onclick="toggleAccordion('acc1')">
+                        <i class="fa-solid fa-key"></i> Desplegar Pistas y Solución Oculta
+                    </button>
+                    <div id="acc1" class="accordion-content">
+                        <strong>Clave de Respuesta Sugerida:</strong><br>
+                        1. a) <strong>Expositivo</strong> (informa datos científicos con objetividad).
+                        <br>&nbsp;&nbsp;&nbsp;&nbsp;b) <strong>Descriptivo</strong> (detalla cualidades físicas y perceptibles).<br>
+                        2. Adjetivos: <em>humeante</em> (vista), <em>negra</em> (vista), <em>azufre</em> (olfato).<br>
+                        3. Ejemplo: <code>"El agua transparente sube en hilos de vapor tibio y blanquecino hacia el cielo azul."</code>
+                    </div>
+                </div>
+            </section>
+
+            <!-- MOMENTO III: TRABAJO COOPERATIVO -->
+            <section id="tab3" class="tab-content">
+                <div class="section-header">
+                    <h2 class="section-title"><i class="fa-solid fa-users"></i> Pestaña III) Trabajo Cooperativo / en Equipo</h2>
+                    <span class="badge-time">Tiempo: 30 minutos</span>
+                </div>
+
+                <div class="card card-habit">
+                    <h4><i class="fa-solid fa-handshake"></i> Hábitos Montano Integrados: "Sinergizar" y "Buscar primero entender, luego ser entendido"</h4>
+                    <p>Trabajo colaborativo en pequeños grupos combinando capacidades de redacción e investigación para construir una propuesta equilibrada.</p>
+                </div>
+
+                <div class="card">
+                    <h4><i class="fa-solid fa-sitemap"></i> Reto Grupal: "Mural Infográfico: Exposición + Descripción"</h4>
+                    <p><strong>Organización de Equipos y Roles:</strong></p>
+                    <ul style="margin-left: 20px;">
+                        <li><strong>Coordinador:</strong> Organiza la selección del lugar/tema de Guatemala y cuida el tiempo.</li>
+                        <li><strong>Redactor Expositivo:</strong> Escribe la ficha con datos científicos u objetivos (ubicación, clima, datos geográficos).</li>
+                        <li><strong>Redactor Descriptivo / Ilustrador:</strong> Escribe el texto rico en adjetivos sensoriales sobre la apariencia del lugar.</li>
+                        <li><strong>Vocero:</strong> Presentará la comparación entre ambos estilos en la plenaria.</li>
+                    </ul>
+                    <br>
+                    <p><strong>Producto Concreto:</strong> Diseñar en un papelógrafo una ficha comparativa sobre un lugar icónico de Guatemala (ej. <em>Lago de Atitlán, Tikal, Semuc Champey</em>) dividido en dos secciones claramente delimitadas: <strong>1. Sección Expositiva</strong> y <strong>2. Sección Descriptiva</strong>.</p>
+
+                    <button class="accordion-btn" onclick="toggleAccordion('acc2')">
+                        <i class="fa-solid fa-lightbulb"></i> Ver Ejemplo de Estructura Esperada
+                    </button>
+                    <div id="acc2" class="accordion-content">
+                        <strong>Estructura esperada en el cartel (Ej. Lago de Atitlán):</strong><br>
+                        • <strong>Sección Expositiva:</strong> "El lago de Atitlán está ubicado en Sololá a 1,560 msnm. Ocupa una caldera volcánica y posee una profundidad máxima de 340 metros."<br>
+                        • <strong>Sección Descriptiva:</strong> "Es un espejo de agua azul turquesa enmarcado por tres majestuosos volcanes verdes y brisas serenas al atardecer."
+                    </div>
+                </div>
+            </section>
+
+            <!-- MOMENTO IV: PLENARIA Y TRIVIA -->
+            <section id="tab4" class="tab-content">
+                <div class="section-header">
+                    <h2 class="section-title"><i class="fa-solid fa-comments"></i> Pestaña IV) Plenaria y Juego Interactivo</h2>
+                    <span class="badge-time">Tiempo: 15 minutos</span>
+                </div>
+
+                <div class="card">
+                    <h4><i class="fa-solid fa-bullhorn"></i> Plenaria: Exposición Comparativa de Equipos</h4>
+                    <p>Cada equipo presenta su papelógrafo contrastando la diferencia de vocabulario entre exponer datos objetivos y describir experiencias sensoriales.</p>
+                </div>
+
+                <!-- Juego Interactivo Ruleta -->
+                <div class="game-box">
+                    <h4><i class="fa-solid fa-arrows-rotate"></i> Juego Interactivo: "Ruleta de Desafíos Textuales"</h4>
+                    <p>Haz clic en el botón para lanzar una pregunta rápida sobre tipos de texto a los equipos durante la plenaria:</p>
+                    
+                    <div class="roulette-display" id="rouletteText">
+                        ¡Presiona "Girar Ruleta" para lanzar una pregunta!
+                    </div>
+
+                    <div style="text-align: center;">
+                        <button class="action-btn" onclick="spinRoulette()">
+                            <i class="fa-solid fa-dice"></i> Girar Ruleta de Preguntas
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- EVALUACIÓN PLENARIA: LISTA DE COTEJO -->
+            <section id="tab5" class="tab-content">
+                <div class="section-header">
+                    <h2 class="section-title"><i class="fa-solid fa-clipboard-check"></i> Instrumento de Evaluación Formativa para la Plenaria</h2>
+                </div>
+
+                <div class="card">
+                    <h4><i class="fa-solid fa-list-check"></i> Lista de Cotejo Interactiva de Desempeño Grupal</h4>
+                    <p>Marque los criterios alcanzados por el equipo durante la presentación presencial en clase:</p>
+
+                    <table class="rubric-table">
+                        <thead>
+                            <tr>
+                                <th>Criterio a Evaluar</th>
+                                <th>Excelente (2.5 pts)</th>
+                                <th>En Proceso (1.5 pts)</th>
+                                <th>Por Mejorar (0.5 pts)</th>
+                                <th>Cumplido</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>1. Diferenciación Textual:</strong> Distingue con claridad la intención expositiva y la descriptiva.</td>
+                                <td>Diferencia ambos tipos sin confusión de lenguaje.</td>
+                                <td>Mezcla ligeramente adjetivos en la parte expositiva.</td>
+                                <td>No logra diferenciar la intencionalidad de ambos.</td>
+                                <td style="text-align: center;"><input type="checkbox"></td>
+                            </tr>
+                            <tr>
+                                <td><strong>2. Uso de Recursos Lingüísticos:</strong> Emplea datos en la exposición y adjetivos/sensoriales en la descripción.</td>
+                                <td>Uso sobresaliente de datos y adjetivos precisos.</td>
+                                <td>Uso limitado de adjetivos o datos.</td>
+                                <td>Falta de adecuación lingüística en ambos párrafos.</td>
+                                <td style="text-align: center;"><input type="checkbox"></td>
+                            </tr>
+                            <tr>
+                                <td><strong>3. Trabajo Colaborativo (Hábitos):</strong> Organización eficiente de roles y apoyo mutuo.</td>
+                                <td>Todos asumieron proactivamente sus funciones.</td>
+                                <td>Participación parcial del grupo.</td>
+                                <td>Un solo estudiante asumió el trabajo.</td>
+                                <td style="text-align: center;"><input type="checkbox"></td>
+                            </tr>
+                            <tr>
+                                <td><strong>4. Desempeño en Plenaria:</strong> El vocero expone con fluidez y responde dudas.</td>
+                                <td>Exposición clara, bien articulada y precisa.</td>
+                                <td>Exposición con ciertas dudas al responder.</td>
+                                <td>No argumenta las respuestas ante la plenaria.</td>
+                                <td style="text-align: center;"><input type="checkbox"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- Pie de Pizarra Institucional -->
+        <footer class="blackboard-footer">
+            Modelo Formativo Colegio Montano • Planificación Diario de Clase Presencial • Proyección Digital en Aula
+        </footer>
+    </div>
+
+    <!-- Script de Funcionalidad e Interacción -->
+    <script>
+        // Cambio de pestañas / momentos didácticos
+        function switchTab(tabId) {
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => content.classList.remove('active'));
+
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+
+            document.getElementById(tabId).classList.add('active');
+
+            const activeBtn = Array.from(buttons).find(btn => btn.getAttribute('onclick').includes(tabId));
+            if (activeBtn) activeBtn.classList.add('active');
+        }
+
+        // Acordeón / Ocultar soluciones
+        function toggleAccordion(id) {
+            const el = document.getElementById(id);
+            if (el.style.display === "block") {
+                el.style.display = "none";
+            } else {
+                el.style.display = "block";
+            }
+        }
+
+        // Ruleta Interactiva
+        const preguntasRuleta = [
+            "¿Cuál es el objetivo principal de un texto expositivo?",
+            "¿Qué tipo de palabras abundan en los textos descriptivos?",
+            "Menciona un ejemplo de texto expositivo que utilices en tus materias escolares.",
+            "¿Qué tipo de descripción combina los rasgos físicos y la personalidad (Retrato)?",
+            "¿Un reportaje científico en una enciclopedia es expositivo o descriptivo?",
+            "Transforma esta frase en descriptiva: 'El perro ladró a la puerta'.",
+            "¿Qué conector usarías en la conclusión de un texto expositivo?",
+            "Menciona el Hábito Montano que aplicamos al planificar las metas de nuestra redacción."
+        ];
+
+        function spinRoulette() {
+            const display = document.getElementById('rouletteText');
+            display.style.color = "#6D28D9";
+            display.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Seleccionando reto...';
+            
+            setTimeout(() => {
+                const randomIndex = Math.floor(Math.random() * preguntasRuleta.length);
+                display.innerText = preguntasRuleta[randomIndex];
+            }, 700);
+        }
+
+        // Pantalla Completa
+        function toggleFullscreen() {
+            const blackboard = document.getElementById('blackboard');
+            if (!document.fullscreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement) {
+                if (blackboard.requestFullscreen) {
+                    blackboard.requestFullscreen();
+                } else if (blackboard.webkitRequestFullscreen) {
+                    blackboard.webkitRequestFullscreen();
+                } else if (blackboard.msRequestFullscreen) {
+                    blackboard.msRequestFullscreen();
+                }
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                } else if (document.webkitExitFullscreen) {
+                    document.webkitExitFullscreen();
+                } else if (document.msExitFullscreen) {
+                    document.msExitFullscreen();
+                }
+            }
+        }
+    </script>
+</body>
+</html>
